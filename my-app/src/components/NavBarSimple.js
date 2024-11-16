@@ -1,4 +1,5 @@
 import React from "react";
+import NavBarForm from "./NavBarForm";
 import css from "./css/NavBarSimple.module.css";
 
 class NavBarSimple extends React.Component {
@@ -6,30 +7,24 @@ class NavBarSimple extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "guest",
-            message: "Hello",
-            buttonText: "log in",
+            displayForm: "false",
         }
     }
 
-    handleClick() {
-        this.setState((prevState, prevProps) => {
-            return {
-                name: prevState.name === "guest" ? "user" : "guest",
-                message: prevState.message === "Hello" ? "Welcome back" : "Hello",
-                buttonText: prevState.buttonText === "log in" ? "log out" : "log in",
-            }
-        });
-    }
+    toggleDisplayForm = () => {
+        this.setState((prevState) => ({
+            displayForm: !prevState.displayForm,
+        }));
+    };
 
     render() {
         return (
                 <div className={css.NavBar}>
                     <h1>My Gallery</h1>
-                    <div>
-                        <span>{this.state.message}, {this.state.name}!</span>
-                        <button onClick={() => this.handleClick()}>{this.state.buttonText}</button>
-                    </div>
+                    <NavBarForm
+                        displayForm={this.state.displayForm}
+                        toggleDisplayForm={this.toggleDisplayForm}
+                    />
                 </div>
         )
     }
