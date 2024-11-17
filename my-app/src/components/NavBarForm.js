@@ -1,9 +1,8 @@
 import React from 'react'
-import css from "./css/NavBarForm.module.css";
 
 function NavBarForm(props) {
   return (
-    <div className={css.NavBar}>
+    <div>
         {!props.displayForm ? (
             <form>
                 <label labelFor='username'>Username: </label>
