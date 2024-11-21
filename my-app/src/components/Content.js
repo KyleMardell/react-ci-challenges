@@ -9,6 +9,7 @@ export class Content extends Component {
         super(props);
         this.state = {
           isLoaded: false,
+          posts: [],
         }
     }
     
@@ -22,16 +23,41 @@ export class Content extends Component {
 
   componentDidMount() {
     this.getData()
+    this.setState({
+      posts: savedPosts,
+    })
+  }
+
+  handleInput = (event) => {
+    const name = event.target.value.toLowerCase()
+    const filteredPosts = savedPosts.filter((post) => {
+      return post.name.toLowerCase().includes(name)
+    })
+    this.setState({
+      posts: filteredPosts
+    })
   }
 
   render() {
     return (
         <div className={css.Content}>
-                <div className={css.TitleBar}><h1>My Photos</h1></div>
+                <div className={css.TitleBar}>
+                  <h1>My Photos</h1>
+                  <form>
+                    <label htmlFor='searchInput'>Search: </label>
+                    <input
+                      type='text'
+                      id='searchInput'
+                      placeholder='search posts...'
+                      onChange={(event) => this.handleInput(event)} 
+                    />
+                    <h4>{this.state.posts.length}</h4>
+                  </form>
+                </div>
                 <div className={css.SearchResults}>
                   {
                     this.state.isLoaded ? (
-                      <PostItem savedPosts={savedPosts} className={css.SearchItem} />
+                      <PostItem savedPosts={this.state.posts} className={css.SearchItem} />
                     ) : (
                       <Loader />
                     )
