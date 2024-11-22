@@ -8,7 +8,7 @@ function PostItem(props) {
                 <div key={title}>
                     <p>Title: {title}</p>
                     <p>Artist: {artist}</p>
-                    <img src={image}></img>
+                    <img src={image} alt='{title}'></img>
                     <p>Description: {description}</p>
                 </div>
             )
